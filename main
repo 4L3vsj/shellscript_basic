@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# List web interfaces and IP Addresses
+list_interfaces() {
+    clear
+    echo "Listing web interfaces and IP Addresses:"
+    echo ""
+    ifconfig
+    echo ""
+}
+
+# Verify external host connectivity
+check_connectivity() {
+    clear
+    echo "Enter the IP address or hostname of the external host to check connectivity:"
+    echo ""
+    if ping -c 4 $host &> /dev/null; then
+            echo "Connection to $host successful."
+    else
+            echo "Failed to connect to $host."
+    fi
+    echo ""
+}
+
+# Reboot network service
+reboot_network_service() {
+    clear
+    echo "Rebooting network service..."
+    sudo systemctl restart networking
+    echo "Network service restarted."
+    echo ""
+}
+
+# Configure a network interface
+configure_interface() {
+    clear
+    echo "Enter the Name of the network interface (e.g., eth0):"
+    read interface
+    echo "Enter the IP address for the interface $interface:"
+    ip_address
+    echo "Enter the subnet mask for the interface $interface (e.g., 255.255.255.0):"
+    read subnet_mask
+    sudo ifconfig $interface $ip_address netmask $subnet_mask
+    echo "Network interface configured successfully."
+    echo ""
+}
+
+main() {
+    while true; do
+            clear
+            echo "===============Main menu=================="
+            echo "1. List web interfaces and IP addresses"
+            echo "2. Check external host connectivity"
+            echo "3. Reboot netservice"
+            echo "4. Set a web interface"
+}
